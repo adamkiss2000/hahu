@@ -166,7 +166,7 @@ kérést elküldeni!!!!
 
 thunderclient a villám szaros ikon
 
-headersba plusszba ++++ content-type   application/json
+headersba plusszba ++++ content-type   application/json ((localhost:3000/api/hahu))
 
 bodyba
 
