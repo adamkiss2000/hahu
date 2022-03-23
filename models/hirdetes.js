@@ -32,5 +32,5 @@ const hirdetesSchema = new Schema({
         maxlength: 100
     }
 })
-
+  
 module.exports = mongoose.model('Hirdetes', hirdetesSchema, 'hirdetesek')
