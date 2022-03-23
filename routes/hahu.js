@@ -44,4 +44,14 @@ router.get("/", function(req,res,next){
     })
 })
 
+router.delete("/:id", function(req, res, next){
+    const id = req.params.id
+    Hirdetes
+    .findByIdAndDelete(id)
+    .then(res.json({
+        'status': 'deleted'
+    }))
+    .catch(err => console.log(err))
+})
+
 module.exports = router;
