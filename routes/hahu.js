@@ -1,8 +1,10 @@
 const express = require('express');
+const { response } = require('../app');
 const hirdetes = require('../models/hirdetes');
 const router = express.Router();
 
 const Hirdetes = require('../models/hirdetes');
+const Kategoria = require('../models/kategoria');
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
@@ -52,6 +54,34 @@ router.delete("/:id", function(req, res, next){
         'status': 'deleted'
     }))
     .catch(err => console.log(err))
+})
+
+router.get("/:mezo", function (req, res, next) {
+    const mezo = req.params.mezo;
+    Hirdetes.find()
+    .populate('kategoria', "nev -_id")
+    .sort({[mezo]: 1})
+    .then(response => {
+        res.json(response);
+    })
+    .catch(err => console.log(err))
+})
+
+router.delete("/:id", function(req, res, next) {
+    const id = req.params.id;
+        Hirdetes
+        .findById(id)
+        .then(response => {
+            if (response === null) {
+                res.json({ 'error': `A hirdetés ${id} azonosítóval nem létezik`})
+            }            
+            Hirdetes.findByIdAndDelete(id)
+                .then(
+                    res
+                    .status(200)
+                    .json({'status': `A hirdetés ${id} azonosítóval törlésre került`}))
+            })
+            .catch(err => console.log(err))
 })
 
 module.exports = router;
